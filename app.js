@@ -58,7 +58,7 @@ const server = http.createServer(function (request, response) {
           throw errors;
         }
         console.log("db 연결 성공");
-        let dataInsert = `INSERT INTO information (name, email) VALUES (${parsedData.name}, ${parsedData.email})`;
+        let dataInsert = `INSERT INTO information (name, email) VALUES (${parsedData.name}, ${parsedData.email});`;
         conn.query(dataInsert, (err, result, fields) => {
           if (err) throw err;
           console.log(result);
