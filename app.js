@@ -6,12 +6,11 @@ import { error } from "console";
 
 // ? mysql에 접속하기 위해 통신 객체 설정.
 const conn = mysql2.createConnection({
-  host: "localhost",
-  user: "root",
+  host: "database-1.co26wyrjstj9.ap-northeast-2.rds.amazonaws.com",
+  user: "admin",
   password: "VHzmffkr1208",
-  database: "user_info",
+  database: "rds_DB",
   port: 3306,
-  socketPath: "/tmp/mysql.sock",
 });
 
 // ? mysql 접속 테스트
