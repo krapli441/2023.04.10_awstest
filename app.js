@@ -6,7 +6,6 @@ const server = http.createServer(function (request, response) {
   if (request.method === "GET") {
     const url = request.url;
     let filePath = "." + url;
-
     if (filePath === "./") {
       filePath = "./index.html";
     }
@@ -15,13 +14,14 @@ const server = http.createServer(function (request, response) {
       return;
     }
 
-    fs.readFile(filePath, (error, data) => {
+    fs.readFile(filePath, "utf-8", (error, data) => {
       if (error) {
         throw error;
       }
       if (url.endsWith(".html")) {
-        res.writeHead(200, { "Content-Type": "text/html" });
+        res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
       }
+      console.log(data);
       response.write(data);
       response.end();
     });
