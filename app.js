@@ -1,6 +1,7 @@
 import mysql2 from "mysql2";
 import http from "http";
 import fs from "fs";
+import qs from "qs";
 
 // ? mysql에 접속하기 위해 통신 객체 설정.
 const conn = mysql2.createConnection({
