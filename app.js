@@ -2,6 +2,7 @@ import mysql2 from "mysql2";
 import http from "http";
 import fs from "fs";
 import qs from "qs";
+import { error } from "console";
 
 // ? mysql에 접속하기 위해 통신 객체 설정.
 const conn = mysql2.createConnection({
@@ -18,7 +19,6 @@ conn.connect(function (errors, result, fields) {
   if (errors) {
     throw errors;
   }
-  console.log("mysql is connected");
 });
 
 // ? 서버 객체 설정
@@ -47,7 +47,25 @@ const server = http.createServer(function (request, response) {
   }
 
   if (request.method === "POST" && request.url.startsWith("/accountSubmit")) {
-    console.log("버튼테스트");
+    let userData = "";
+    request.on("data", function (data) {
+      userData = userData + data;
+    });
+    request.on("end", function () {
+      let parsedData = qs.parse(userData);
+      console.log(parsedData);
+      conn.connect(function (errors, result, fields) {
+        if (errors) {
+          throw errors;
+        }
+        console.log("db 연결 성공");
+        let dataInsert = `INSERT INTO information (name, email) VALUES (${parsedData.name}, ${parsedData.email})`;
+        conn.query(dataInsert, (err, result, fields) => {
+          if (err) throw err;
+          console.log(result);
+        });
+      });
+    });
     response.end();
   }
 });
