@@ -10,7 +10,7 @@ const conn = mysql2.createConnection({
   user: "admin",
   password: "VHzmffkr1208",
   database: "rds_DB",
-  port: 3306,
+  port: 2080,
 });
 
 // ? mysql 접속 테스트
